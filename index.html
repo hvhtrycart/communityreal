@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Название вкладки -->
+    <title>???</title>
+    
+    <!-- Иконка вкладки (favicon), использует твою аватарку -->
+    <link rel="icon" href="1.jpg" type="image/jpeg">
+
+    <!-- Подключение Google Fonts (Montserrat) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
+    <!-- Подключение библиотеки иконок FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Фоновая гифка */
+            background: url('katana%20GIF.gif') center/cover no-repeat;
+            background-color: #111;
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        /* Центральная карточка */
+        .card {
+            position: relative;
+            z-index: 2;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 35px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+            max-width: 95%;
+            flex-wrap: wrap;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Радужная рамка остается только у аватарки */
+        .image-wrapper {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            padding: 4px;
+            background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff, #ff0000);
+            background-size: 300% 300%;
+            animation: rainbowBorder 4s linear infinite;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+            display: block;
+        }
+
+        @keyframes rainbowBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Шрифт Montserrat для никнейма */
+        .nickname {
+            font-size: 42px;
+            font-weight: 900;
+            margin: 0;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+            letter-spacing: -1px;
+        }
+
+        /* Стиль значка Verify: белый круг, черная галка */
+        .verify-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .verify-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #ffffff; 
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+        }
+
+        .verify-badge i {
+            font-size: 14px;
+            color: #000000; 
+        }
+
+        /* Текст Verify при наведении */
+        .verify-text {
+            position: absolute;
+            left: 40px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-shadow: 0 0 10px white;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .verify-badge:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .verify-badge:hover + .verify-text {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Текст под ником */
+        .status-text {
+            margin-top: 5px;
+            font-size: 13px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: lowercase;
+            letter-spacing: 1px;
+        }
+
+        /* Иконки соцсетей */
+        .links {
+            display: flex;
+            gap: 20px;
+            margin-left: 20px;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            padding-left: 30px;
+            align-items: center; 
+        }
+
+        .links a {
+            color: #ffffff;
+            font-size: 26px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+        }
+
+        .links a:hover {
+            transform: translateY(-5px);
+            text-shadow: 0 0 20px #ffffff;
+            color: #ffffff;
+        }
+
+        /* Стили для твоей картинки Statlocker */
+        .custom-icon {
+            width: 28px; 
+            height: 28px;
+            object-fit: contain; 
+            transition: transform 0.3s ease;
+        }
+
+        .links a:hover .custom-icon {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+        }
+
+        /* Адаптив для телефонов */
+        @media (max-width: 800px) {
+            .card {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 20px;
+            }
+            .header-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .links {
+                margin-left: 0;
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                padding-left: 0;
+                padding-top: 20px;
+                margin-top: 10px;
+                justify-content: center;
+            }
+            .verify-text {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="card">
+        
+        <!-- Фото с радужной рамкой -->
+        <div class="image-wrapper">
+            <img src="1.jpg" alt="trycart1">
+        </div>
+
+        <!-- Центр: Ник и статус -->
+        <div class="info">
+            <div class="header-row">
+                <h1 class="nickname">trycart1</h1>
+                
+                <div class="verify-container">
+                    <div class="verify-badge">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <span class="verify-text">Verified Profile</span>
+                </div>
+            </div>
+            <div class="status-text">this account has been blocked by communityreal</div>
+        </div>
+
+        <!-- Право: Иконки -->
+        <div class="links">
+            <a href="https://open.spotify.com/user/3155md6nli24oryyqsr2ubbw4be4?si=02d661bf2dab4c14" target="_blank" title="Spotify">
+                <i class="fab fa-spotify"></i>
+            </a>
+            <a href="https://t.me/Dyx_Stalina" target="_blank" title="Telegram">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <a href="https://steamcommunity.com/id/trycart1uid8/" target="_blank" title="Steam">
+                <i class="fab fa-steam"></i>
+            </a>
+            <!-- Картинка Statlocker (PNG без фона) -->
+            <a href="https://statlocker.gg/profile/490819859/matches" target="_blank" title="Statlocker">
+                <img src="statlocker.png" alt="Statlocker" class="custom-icon">
+            </a>
+        </div>
+        
+    </div>
+
+</body>
+</html>
